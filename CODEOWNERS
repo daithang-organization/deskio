@@ -1,34 +1,20 @@
-# CODEOWNERS
-# Reference:
-# - Use GitHub teams where possible: @org/team-name
-# - Keep ownership aligned with module boundaries
+* @daithang-organization/maintainers
 
-# Default owners (fallback)
-* @deskio/maintainers
+/.github/ @daithang-organization/devops
+/CODEOWNERS @daithang-organization/devops
+/docs/ @daithang-organization/platform
+/infra/ @daithang-organization/devops
 
-# GitHub/automation
-/.github/ @deskio/platform-devops
-/CODEOWNERS @deskio/platform-devops
+/packages/config/ @daithang-organization/platform
+/packages/contracts/ @daithang-organization/backend
+/packages/utils/ @daithang-organization/backend
+/packages/ui/ @daithang-organization/frontend
 
-# Documentation
-/docs/ @deskio/platform-devops
+/services/identity-service/ @daithang-organization/backend
+/services/ticket-service/ @daithang-organization/backend
+/services/kb-service/ @daithang-organization/backend
+/services/notification-worker/ @daithang-organization/devops
 
-# Infra / DevOps
-/infra/ @deskio/platform-devops
-
-# Shared packages
-/packages/config/ @deskio/platform-devops
-/packages/contracts/ @deskio/backend
-/packages/utils/ @deskio/backend
-/packages/ui/ @deskio/frontend
-
-# Backend services
-/services/identity-service/ @deskio/identity
-/services/ticket-service/ @deskio/ticket
-/services/kb-service/ @deskio/kb-backend
-/services/notification-worker/ @deskio/platform-devops
-
-# Frontend apps
-/apps/customer-portal/ @deskio/frontend
-/apps/agent-console/ @deskio/frontend
-/apps/admin-console/ @deskio/frontend
+/apps/customer-portal/ @daithang-organization/frontend
+/apps/agent-console/ @daithang-organization/frontend
+/apps/admin-console/ @daithang-organization/frontend
