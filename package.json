@@ -1,18 +1,25 @@
 {
   "name": "deskio",
   "private": true,
-  "packageManager": "npm@10",
+  "packageManager": "pnpm@9.15.0",
   "workspaces": [
     "apps/*",
     "services/*",
     "packages/*"
   ],
   "scripts": {
-    "lint": "echo \"(placeholder) Add eslint later\"",
-    "format": "echo \"(placeholder) Add prettier later\"",
-    "build": "echo \"(placeholder) Add build scripts later\"",
-    "test": "echo \"(placeholder) Add tests later\"",
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck",
+    "test": "turbo test",
+
     "dev:infra": "docker compose -f infra/docker-compose.yml up -d",
-    "down:infra": "docker compose -f infra/docker-compose.yml down"
+    "down:infra": "docker compose -f infra/docker-compose.yml down",
+
+    "clean": "git clean -xdf -e .env -e **/.env -e pnpm-lock.yaml"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0"
   }
 }
