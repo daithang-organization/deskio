@@ -1,6 +1,6 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import type { Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import 'reflect-metadata';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './common/http-exception.filter';
@@ -20,7 +20,7 @@ async function bootstrap() {
   });
 
   // Correlation
-  app.use((req: Request, res: Response, next) => requestIdMiddleware(req, res, next));
+  app.use((req: Request, res: Response, next: NextFunction) => requestIdMiddleware(req, res, next));
 
   // Validation
   app.useGlobalPipes(
