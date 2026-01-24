@@ -4,65 +4,65 @@
 area:infra:
   - changed-files:
       - any-glob-to-any-file:
-          - "infra/**"
+          - 'infra/**'
 
 area:ci:
   - changed-files:
       - any-glob-to-any-file:
-          - ".github/workflows/**"
+          - '.github/workflows/**'
 
 type:docs:
   - changed-files:
       - any-glob-to-any-file:
-          - "docs/**"
-          - "**/*.md"
+          - 'docs/**'
+          - '**/*.md'
 
 # Backend areas
 area:identity:
   - changed-files:
       - any-glob-to-any-file:
-          - "services/identity-service/**"
+          - 'services/identity-service/**'
 
 area:ticket:
   - changed-files:
       - any-glob-to-any-file:
-          - "services/ticket-service/**"
+          - 'services/ticket-service/**'
 
 area:kb:
   - changed-files:
       - any-glob-to-any-file:
-          - "services/kb-service/**"
+          - 'services/kb-service/**'
 
 area:notification:
   - changed-files:
       - any-glob-to-any-file:
-          - "services/notification-worker/**"
+          - 'services/notification-worker/**'
 
 # Frontend apps
 area:customer-portal:
   - changed-files:
       - any-glob-to-any-file:
-          - "apps/customer-portal/**"
+          - 'apps/customer-portal/**'
 
 area:agent-console:
   - changed-files:
       - any-glob-to-any-file:
-          - "apps/agent-console/**"
+          - 'apps/agent-console/**'
 
 area:admin-console:
   - changed-files:
       - any-glob-to-any-file:
-          - "apps/admin-console/**"
+          - 'apps/admin-console/**'
 
 # Shared packages
 area:packages:
   - changed-files:
       - any-glob-to-any-file:
-          - "packages/**"
+          - 'packages/**'
 
 # GitHub meta
 area:github:
   - changed-files:
       - any-glob-to-any-file:
-          - ".github/**"
-          - "CODEOWNERS"
+          - '.github/**'
+          - 'CODEOWNERS'
