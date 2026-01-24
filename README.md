@@ -1,8 +1,8 @@
 # Deskio
 
-Deskio là nền tảng helpdesk/ticketing theo mô hình **multi-tenant (workspace)**, cung cấp **RBAC (Admin/Agent/Customer)**, luồng **ticket end-to-end**, Knowledge Base cơ bản và notification email tối thiểu. Repo này được tổ chức theo **monorepo** để thống nhất tiêu chuẩn code, CI, và vận hành.
-
----
+> Deskio là nền tảng helpdesk/ticketing theo mô hình multi-tenant (workspace),
+> cung cấp RBAC (Admin/Agent/Customer), luồng ticket end-to-end, Knowledge Base
+> cơ bản và notification email tối thiểu.
 
 ## Mục tiêu (MVP)
 - Workspace + multi-tenant baseline
@@ -12,25 +12,16 @@ Deskio là nền tảng helpdesk/ticketing theo mô hình **multi-tenant (worksp
 - Notification: email tối thiểu (worker)
 - DevOps baseline: docker-compose dev, CI, staging deploy skeleton, logging/observability baseline
 
----
-
-## Kiến trúc (MVP - high level)
-- **Apps (Frontend)**
-  - Customer Portal (Next.js)
-  - Agent Console (Next.js)
-  - Admin Console (Next.js)
-- **Services (Backend)**
-  - identity-service (Auth/RBAC/Workspace)
-  - ticket-service (Ticket core)
-  - kb-service (Knowledge Base)
-  - notification-worker (email jobs/queue)
+## Kiến trúc (tóm tắt)
+| Nhóm | Thành phần | Vai trò |
+| --- | --- | --- |
+| Apps | Customer Portal, Agent Console, Admin Console | Trải nghiệm cho customer/agent/admin |
+| Services | identity-service, ticket-service, kb-service, notification-worker | Core domain services và email worker |
 
 **Infra tối thiểu (dev):**
 - Postgres
 - Redis (queue/cache)
 - Object storage (MinIO/S3-compatible)
-
----
 
 ## Tech Stack (định hướng)
 - Frontend: Next.js (App Router) + TypeScript
@@ -40,10 +31,25 @@ Deskio là nền tảng helpdesk/ticketing theo mô hình **multi-tenant (worksp
 - Object storage: MinIO (dev) / S3 (staging/prod)
 - CI: GitHub Actions
 
----
+## Bắt đầu nhanh
+```bash
+npm install
+npm run dev:infra
+```
+
+Xem `docs/development.md` để biết hướng dẫn chi tiết và scripts theo từng workspace.
+
+## Tài liệu
+- `docs/architecture.md`
+- `docs/api-conventions.md`
+- `docs/development.md`
+- `docs/adr/0000-template.md`
+- `CONTRIBUTING.md`
+- `SECURITY.md`
+- `CODE_OF_CONDUCT.md`
+- `CHANGELOG.md`
 
 ## Repo Structure
-
 ```text
 apps/
   customer-portal/
@@ -68,3 +74,16 @@ docs/
   workflows/
   ISSUE_TEMPLATE/
 CODEOWNERS
+```
+
+## Thành viên
+1. Huỳnh Lê Đại Thắng (Leader)
+2. Nguyễn Khánh Vy
+3. Bùi Ngọc Thái
+
+## Đóng góp và pháp lý
+- Đóng góp: `CONTRIBUTING.md`
+- Bảo mật: `SECURITY.md`
+- Hành vi: `CODE_OF_CONDUCT.md`
+- Thay đổi: `CHANGELOG.md`
+- License: `LICENSE`
