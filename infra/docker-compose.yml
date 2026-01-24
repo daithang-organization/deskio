@@ -1,0 +1,56 @@
+name: deskio-dev
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: deskio-postgres
+    environment:
+      POSTGRES_USER: deskio
+      POSTGRES_PASSWORD: deskio
+      POSTGRES_DB: deskio
+    ports:
+      - "5432:5432"
+    volumes:
+      - deskio_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U deskio -d deskio"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7
+    container_name: deskio-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - deskio_redis_data:/data
+    command: ["redis-server", "--appendonly", "yes"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  minio:
+    image: minio/minio:latest
+    container_name: deskio-minio
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"   # S3 API
+      - "9001:9001"   # Console
+    volumes:
+      - deskio_minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  deskio_pg_data:
+  deskio_redis_data:
+  deskio_minio_data:
