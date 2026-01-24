@@ -10,7 +10,7 @@ và quy trình làm việc tiêu chuẩn cho repo.
 - Mọi thay đổi đều thông qua PR, không push trực tiếp vào `main`.
 
 ## Yêu cầu môi trường
-- Node.js LTS (>=18) + npm 10 (repo dùng npm@10).
+- Node.js LTS (>=18) + pnpm (repo dùng pnpm).
 - Docker (để chạy infra local).
 - Git.
 
@@ -18,8 +18,8 @@ và quy trình làm việc tiêu chuẩn cho repo.
 ```bash
 git clone <repo-url>
 cd deskio
-npm install
-npm run dev:infra
+pnpm install
+pnpm dev:infra
 ```
 
 Xem `docs/development.md` để biết hướng dẫn chi tiết theo từng workspace.
