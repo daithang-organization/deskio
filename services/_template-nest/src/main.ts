@@ -8,7 +8,7 @@ import { AppLogger } from './common/logger';
 import { requestIdMiddleware } from './common/request-id.middleware';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { 
+  const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
     logger: new AppLogger('Bootstrap'),
   });

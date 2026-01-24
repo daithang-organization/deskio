@@ -4,7 +4,7 @@
     "outDir": "dist",
     "moduleResolution": "Node",
     "module": "CommonJS",
-    "types": ["node"],
+    "types": ["node", "jest"],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "noEmit": false

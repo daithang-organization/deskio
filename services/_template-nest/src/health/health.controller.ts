@@ -7,7 +7,7 @@ export class HealthController {
 
   @Get('/healthz')
   healthz() {
-    return { 
+    return {
       status: 'ok',
       service: this.config.get('SERVICE_NAME'),
       timestamp: new Date().toISOString(),
@@ -17,12 +17,12 @@ export class HealthController {
   @Get('/readyz')
   readyz() {
     // Add checks for database, redis, etc when needed
-    return { 
+    return {
       status: 'ready',
       checks: {
         // database: 'ok',
         // redis: 'ok',
-      }
+      },
     };
   }
 }

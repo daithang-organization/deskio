@@ -9,5 +9,5 @@ export const envValidationSchema = Joi.object({
 
   // Database/Redis placeholders for later (optional)
   DATABASE_URL: Joi.string().optional(),
-  REDIS_URL: Joi.string().optional()
+  REDIS_URL: Joi.string().optional(),
 }).unknown(true);
