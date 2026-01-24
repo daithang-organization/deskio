@@ -33,8 +33,8 @@
 
 ## Bắt đầu nhanh
 ```bash
-npm install
-npm run dev:infra
+pnpm install
+pnpm dev:infra
 ```
 
 Xem `docs/development.md` để biết hướng dẫn chi tiết và scripts theo từng workspace.

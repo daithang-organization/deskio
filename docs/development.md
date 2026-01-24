@@ -4,18 +4,18 @@ Hướng dẫn này mô tả cách thiết lập và phát triển Deskio trên 
 
 ## Quickstart
 ```bash
-npm install
-npm run dev:infra
+pnpm install
+pnpm dev:infra
 ```
 
 ## Yêu cầu môi trường
-- Node.js LTS (>=18) + npm 10.
+- Node.js LTS (>=18) + pnpm.
 - Docker (để chạy infra local).
 - Git.
 
 ## Cài đặt
-1. Cài dependencies: `npm install`.
-2. Bật infra local: `npm run dev:infra`.
+1. Cài dependencies: `pnpm install`.
+2. Bật infra local: `pnpm dev:infra`.
 3. Vào workspace cần làm việc trong `apps/*` hoặc `services/*`:
    - Chạy scripts theo README của workspace (nếu có).
    - Nếu chưa có, tạo README nhỏ mô tả cách chạy.
@@ -30,11 +30,11 @@ npm run dev:infra
 ## Scripts (root)
 | Script | Mô tả |
 | --- | --- |
-| `npm run dev:infra` | Bật hạ tầng local (Postgres/Redis/MinIO). |
-| `npm run down:infra` | Tắt hạ tầng local. |
-| `npm run lint` | Placeholder, sẽ bổ sung sau. |
-| `npm test` | Placeholder, sẽ bổ sung sau. |
-| `npm run build` | Placeholder, sẽ bổ sung sau. |
+| `pnpm dev:infra` | Bật hạ tầng local (Postgres/Redis/MinIO). |
+| `pnpm down:infra` | Tắt hạ tầng local. |
+| `pnpm lint` | Placeholder, sẽ bổ sung sau. |
+| `pnpm test` | Placeholder, sẽ bổ sung sau. |
+| `pnpm build` | Placeholder, sẽ bổ sung sau. |
 
 ## Quy ước môi trường
 Biến môi trường và secrets không lưu trong repo. Nếu cần, tạo file `.env`
