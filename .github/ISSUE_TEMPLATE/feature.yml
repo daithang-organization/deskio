@@ -1,0 +1,91 @@
+name: Feature / Story
+description: Tạo feature theo format user story + acceptance criteria
+title: "[FEAT] "
+labels: ["type:feat"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Vui lòng điền đầy đủ để dev/QA/PM thống nhất phạm vi.
+  - type: input
+    id: area
+    attributes:
+      label: Area/Module
+      description: identity / ticket / kb / notification / infra / ci / app-*
+      placeholder: "ticket"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / Context
+      description: Bối cảnh và vấn đề cần giải quyết
+      placeholder: "Hiện tại..."
+    validations:
+      required: true
+  - type: textarea
+    id: user_story
+    attributes:
+      label: User Story
+      description: Theo format “As a <role>, I want <goal>, so that <benefit>”
+      placeholder: |
+        As a ...
+        I want ...
+        so that ...
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope / Requirements
+      description: Liệt kê hạng mục phải làm (in-scope) và không làm (out-of-scope)
+      placeholder: |
+        In-scope:
+        - ...
+        Out-of-scope:
+        - ...
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      description: Điều kiện nghiệm thu rõ ràng, đo được
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: api_contract
+    attributes:
+      label: API/Contract Impact (nếu có)
+      description: Endpoint mới/sửa, OpenAPI spec, migration note
+      placeholder: |
+        - OpenAPI: packages/contracts/...
+        - Endpoint: ...
+        - Migration: ...
+    validations:
+      required: false
+  - type: textarea
+    id: test_notes
+    attributes:
+      label: Test Notes
+      description: Kịch bản test chính
+      placeholder: |
+        - Given ...
+        - When ...
+        - Then ...
+    validations:
+      required: false
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - prio:P0
+        - prio:P1
+        - prio:P2
+        - prio:P3
+    validations:
+      required: true

@@ -1,0 +1,72 @@
+name: Bug Report
+description: Báo lỗi có thể tái hiện, kèm kỳ vọng và bằng chứng
+title: "[BUG] "
+labels: ["type:bug"]
+body:
+  - type: input
+    id: area
+    attributes:
+      label: Area/Module
+      placeholder: "identity / ticket / kb / notification / infra / ci / app-*"
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Mô tả ngắn gọn lỗi
+      placeholder: "Khi ..., hệ thống ..."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Các bước tái hiện lỗi
+      placeholder: |
+        1) ...
+        2) ...
+        3) ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      placeholder: "Kỳ vọng..."
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      placeholder: "Thực tế..."
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence (Logs/Screenshots)
+      description: Dán log/screenshot/link
+      placeholder: "Logs: ... / Screenshot: ..."
+    validations:
+      required: false
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: dev/staging/prod + version/commit (nếu có)
+      placeholder: "dev - commit abc123"
+    validations:
+      required: false
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - P0 - Blocker
+        - P1 - High
+        - P2 - Medium
+        - P3 - Low
+    validations:
+      required: true

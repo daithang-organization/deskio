@@ -1,0 +1,68 @@
+# .github/labeler.yml
+
+# Type / scope signals (optional)
+area:infra:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "infra/**"
+
+area:ci:
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/workflows/**"
+
+type:docs:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "docs/**"
+          - "**/*.md"
+
+# Backend areas
+area:identity:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "services/identity-service/**"
+
+area:ticket:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "services/ticket-service/**"
+
+area:kb:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "services/kb-service/**"
+
+area:notification:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "services/notification-worker/**"
+
+# Frontend apps
+area:customer-portal:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "apps/customer-portal/**"
+
+area:agent-console:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "apps/agent-console/**"
+
+area:admin-console:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "apps/admin-console/**"
+
+# Shared packages
+area:packages:
+  - changed-files:
+      - any-glob-to-any-file:
+          - "packages/**"
+
+# GitHub meta
+area:github:
+  - changed-files:
+      - any-glob-to-any-file:
+          - ".github/**"
+          - "CODEOWNERS"
