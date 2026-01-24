@@ -1,10 +1,13 @@
 ## Liên kết
+
 - Jira/GitHub Issue: <!-- dán link hoặc KEY -->
 
 ## Tóm tắt thay đổi
+
 <!-- mô tả ngắn gọn: làm gì, vì sao -->
 
 ## Loại thay đổi
+
 - [ ] Feature
 - [ ] Bug fix
 - [ ] Refactor
@@ -12,15 +15,18 @@
 - [ ] Docs
 
 ## Phạm vi (Scope)
+
 - [ ] Backend
 - [ ] Frontend
 - [ ] Infra/DevOps
 - [ ] Docs
 
 ## Chi tiết triển khai
+
 <!-- điểm chính về kiến trúc, API, migration, breaking changes -->
 
 ## Kiểm thử
+
 - [ ] Chưa chạy (nêu lý do)
 - [ ] Đã chạy
 - Steps:
@@ -29,12 +35,15 @@
 - Kỳ vọng (Expected):
 
 ## Rủi ro & Rollback
+
 <!-- ảnh hưởng, cách rollback nếu có -->
 
 ## Ảnh/Screencast (UI)
+
 <!-- nếu có thay đổi UI -->
 
 ## Checklist
+
 - [ ] Đã self-review (đọc lại diff)
 - [ ] Đã cập nhật docs (nếu cần)
 - [ ] Không có breaking change (hoặc đã ghi rõ)

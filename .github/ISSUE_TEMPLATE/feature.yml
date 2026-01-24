@@ -1,7 +1,7 @@
 name: Feature / Story
 description: Tạo feature theo format user story + acceptance criteria
-title: "[FEAT] "
-labels: ["type:feat"]
+title: '[FEAT] '
+labels: ['type:feat']
 body:
   - type: markdown
     attributes:
@@ -12,7 +12,7 @@ body:
     attributes:
       label: Area/Module
       description: identity / ticket / kb / notification / infra / ci / app-*
-      placeholder: "ticket"
+      placeholder: 'ticket'
     validations:
       required: true
   - type: textarea
@@ -20,7 +20,7 @@ body:
     attributes:
       label: Problem / Context
       description: Bối cảnh và vấn đề cần giải quyết
-      placeholder: "Hiện tại..."
+      placeholder: 'Hiện tại...'
     validations:
       required: true
   - type: textarea
