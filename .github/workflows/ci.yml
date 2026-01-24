@@ -66,6 +66,11 @@ jobs:
         if: steps.detect.outputs.found == 'true'
         run: |
           for d in services/*; do
+            # Skip template folders (starting with _)
+            if [[ "$(basename "$d")" == _* ]]; then
+              echo "Skipping template folder: $(basename "$d")"
+              continue
+            fi
             if [ -f "$d/Dockerfile" ]; then
               name=$(basename "$d")
               echo "Building $name..."
