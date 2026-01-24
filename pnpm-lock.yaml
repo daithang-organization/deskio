@@ -5179,6 +5179,8 @@ snapshots:
 
   tslib@2.8.1: {}
 
+  prettier@3.8.1: {}
+
   turbo-darwin-64@2.7.5:
     optional: true
 
