@@ -18,7 +18,10 @@
     "prepare": "echo \"Prepare script placeholder\"",
     "dev:infra": "docker compose -f infra/docker-compose.yml up -d",
     "down:infra": "docker compose -f infra/docker-compose.yml down",
-    "clean": "git clean -xdf -e .env -e **/.env -e pnpm-lock.yaml"
+    "clean": "git clean -xdf -e .env -e **/.env -e pnpm-lock.yaml",
+    "dev:customer": "pnpm --filter ./apps/customer-portal dev",
+    "dev:agent": "pnpm --filter ./apps/agent-console dev",
+    "dev:admin": "pnpm --filter ./apps/admin-console dev"
   },
   "devDependencies": {
     "prettier": "^3.8.1",

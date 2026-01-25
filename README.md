@@ -44,6 +44,28 @@ pnpm dev:infra
 
 Xem `docs/development.md` để biết hướng dẫn chi tiết và scripts theo từng workspace.
 
+## Chạy Docker (infra local)
+
+Deskio dùng Docker Compose để bật Postgres/Redis/MinIO cho local development.
+
+```bash
+# Bật hạ tầng local (wrapper script)
+pnpm dev:infra
+
+# Hoặc chạy trực tiếp Docker Compose
+docker compose -f infra/docker-compose.yml up -d
+```
+
+```bash
+# Tắt hạ tầng local
+pnpm down:infra
+
+# Hoặc
+docker compose -f infra/docker-compose.yml down
+```
+
+Xem thêm chi tiết tại `infra/README.md`.
+
 ## Tài liệu
 
 - `docs/architecture.md`
