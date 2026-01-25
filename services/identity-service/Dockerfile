@@ -18,7 +18,8 @@ RUN npm i -g pnpm@9.15.0 && pnpm install --frozen-lockfile --filter=identity-ser
 # Copy service source and build
 COPY services/identity-service/tsconfig.json services/identity-service/nest-cli.json ./services/identity-service/
 COPY services/identity-service/src ./services/identity-service/src
-RUN pnpm --filter=identity-service run build
+WORKDIR /app/services/identity-service
+RUN pnpm run build
 
 # Runtime stage
 FROM node:20-alpine AS runner
