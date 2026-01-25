@@ -35,14 +35,25 @@
 - Object storage: MinIO (dev) / S3 (staging/prod)
 - CI: GitHub Actions
 
-## Bắt đầu nhanh
+## Getting Started
+
+For complete setup instructions, see **[Local Development Guide](docs/local-dev.md)**.
+
+### Quick Start
 
 ```bash
+# Install dependencies
 pnpm install
-pnpm dev:infra
+
+# Start infrastructure (Postgres, Redis, MinIO, Mailpit)
+pnpm infra:up
+
+# Run a service or app
+pnpm dev:identity  # Identity Service → http://localhost:3002
+pnpm dev:customer  # Customer Portal → http://localhost:3000
 ```
 
-Xem `docs/development.md` để biết hướng dẫn chi tiết và scripts theo từng workspace.
+See [docs/local-dev.md](docs/local-dev.md) for detailed setup, port mappings, and troubleshooting.
 
 ## Chạy Docker (infra local)
 
@@ -68,14 +79,15 @@ Xem thêm chi tiết tại `infra/README.md`.
 
 ## Tài liệu
 
-- `docs/architecture.md`
-- `docs/api-conventions.md`
-- `docs/development.md`
-- `docs/adr/0000-template.md`
-- `CONTRIBUTING.md`
-- `SECURITY.md`
-- `CODE_OF_CONDUCT.md`
-- `CHANGELOG.md`
+- **[Local Development Guide](docs/local-dev.md)** — Getting started, port map, environment setup
+- [Architecture](docs/architecture.md) — System design and patterns
+- [API Conventions](docs/api-conventions.md) — REST/OpenAPI standards
+- [Development](docs/development.md) — Development workflows
+- [ADR Templates](docs/adr/0000-template.md) — Architecture Decision Records
+- [Contributing](CONTRIBUTING.md) — Contribution guidelines
+- [Security](SECURITY.md) — Security policies
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Changelog](CHANGELOG.md)
 
 ## Repo Structure
 

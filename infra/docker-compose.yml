@@ -44,11 +44,13 @@ services:
       - '9001:9001' # Console
     volumes:
       - deskio_minio_data:/data
-    healthcheck:
-      test: ['CMD', 'curl', '-f', 'http://localhost:9000/minio/health/live']
-      interval: 10s
-      timeout: 5s
-      retries: 10
+
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: deskio-mailpit
+    ports:
+      - '8025:8025' # Web UI
+      - '1025:1025' # SMTP
 
 volumes:
   deskio_pg_data:
