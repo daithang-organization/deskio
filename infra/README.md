@@ -165,6 +165,17 @@ docker compose -f infra/docker-compose.yml down -v
 
 ---
 
+## Tham khao (external)
+
+De dev moi doc them ve Docker va Docker Compose:
+
+- Docker Desktop install: https://docs.docker.com/desktop/
+- Docker Compose overview: https://docs.docker.com/compose/
+- docker compose up: https://docs.docker.com/engine/reference/commandline/compose_up/
+- docker compose down: https://docs.docker.com/engine/reference/commandline/compose_down/
+
+---
+
 ## Health Checks
 
 Tất cả services đều có health checks để đảm bảo ready trước khi services connect:
