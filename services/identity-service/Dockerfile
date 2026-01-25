@@ -13,13 +13,19 @@ COPY packages/config ./packages/config
 COPY services/identity-service/package.json ./services/identity-service/package.json
 
 # Install dependencies from workspace root
-RUN npm i -g pnpm@9.15.0 && pnpm install --frozen-lockfile --filter=identity-service...
+RUN npm i -g pnpm@9.15.0 && pnpm install --frozen-lockfile --dev --filter=identity-service...
 
 # Copy service source and build
 COPY services/identity-service/tsconfig.json services/identity-service/nest-cli.json ./services/identity-service/
 COPY services/identity-service/src ./services/identity-service/src
 WORKDIR /app/services/identity-service
-RUN pnpm run build
+RUN pnpm run build && \
+    echo "=== Checking build output ===" && \
+    ls -la && \
+    echo "=== Checking if dist exists ===" && \
+    ls -la dist || echo "dist not found" && \
+    echo "=== Checking parent directory ===" && \
+    ls -la /app
 
 # Runtime stage
 FROM node:20-alpine AS runner
