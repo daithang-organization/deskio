@@ -17,12 +17,19 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "echo \"Prepare script placeholder\"",
+    "infra:up": "docker compose -f infra/docker-compose.yml up -d",
+    "infra:down": "docker compose -f infra/docker-compose.yml down",
+    "infra:logs": "docker compose -f infra/docker-compose.yml logs -f --tail=200",
+    "infra:reset": "docker compose -f infra/docker-compose.yml down -v",
     "dev:infra": "docker compose -f infra/docker-compose.yml up -d",
     "down:infra": "docker compose -f infra/docker-compose.yml down",
     "clean": "git clean -xdf -e .env -e **/.env -e pnpm-lock.yaml",
     "dev:customer": "pnpm --filter ./apps/customer-portal dev",
     "dev:agent": "pnpm --filter ./apps/agent-console dev",
-    "dev:admin": "pnpm --filter ./apps/admin-console dev"
+    "dev:admin": "pnpm --filter ./apps/admin-console dev",
+    "dev:identity": "pnpm --filter ./services/identity-service dev",
+    "dev:ticket": "pnpm --filter ./services/ticket-service dev",
+    "dev:kb": "pnpm --filter ./services/kb-service dev"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.18.0",
