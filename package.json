@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "turbo dev",
     "build": "turbo build",
+    "openapi:lint": "pnpm --filter @deskio/contracts openapi:lint",
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
     "test": "turbo test",
