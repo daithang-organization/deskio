@@ -1,13 +1,7 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "@deskio/config/tsconfig/nest",
   "compilerOptions": {
-    "outDir": "dist",
-    "moduleResolution": "Node",
-    "module": "CommonJS",
-    "types": ["node", "jest"],
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "noEmit": false
+    "types": ["node", "jest"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]

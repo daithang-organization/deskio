@@ -5,10 +5,11 @@ Shared utility functions và helpers cho Deskio platform.
 ## Mục đích
 
 Utils package cung cấp common utilities được sử dụng bởi cả frontend và backend:
+
 - String manipulation helpers
 - Date/time formatters
 - Validation utilities
-- API client helpers  
+- API client helpers
 - Error handling utilities
 - Common algorithms
 - Type guards và assertions
@@ -88,7 +89,7 @@ const slug = slugify('My Article Title!'); // "my-article-title"
 const slug2 = slugify('Tiếng Việt Unicode'); // "tieng-viet-unicode"
 
 // Truncate
-const short = truncate('This is a very long text...', 20); 
+const short = truncate('This is a very long text...', 20);
 // "This is a very lo..."
 
 const shortWords = truncate('This is a very long text...', 20, { useWordBoundary: true });
@@ -183,7 +184,7 @@ try {
 } catch (error) {
   const handled = handleApiError(error);
   console.error(handled.message);
-  
+
   if (handled.code === 'UNAUTHORIZED') {
     // Redirect to login
   }
@@ -307,7 +308,7 @@ logger.info('User logged in', {
 ```typescript
 export function slugify(text: string, options?: { separator?: string }): string {
   const separator = options?.separator || '-';
-  
+
   return text
     .toString()
     .toLowerCase()
@@ -326,21 +327,21 @@ export function slugify(text: string, options?: { separator?: string }): string 
 ```typescript
 export function formatDate(date: Date | string, format: string): string {
   const d = typeof date === 'string' ? new Date(date) : date;
-  
+
   const tokens: Record<string, () => string> = {
-    'yyyy': () => d.getFullYear().toString(),
-    'MM': () => String(d.getMonth() + 1).padStart(2, '0'),
-    'dd': () => String(d.getDate()).padStart(2, '0'),
-    'HH': () => String(d.getHours()).padStart(2, '0'),
-    'mm': () => String(d.getMinutes()).padStart(2, '0'),
-    'ss': () => String(d.getSeconds()).padStart(2, '0'),
-    'MMM': () => d.toLocaleString('en', { month: 'short' }),
-    'MMMM': () => d.toLocaleString('en', { month: 'long' }),
+    yyyy: () => d.getFullYear().toString(),
+    MM: () => String(d.getMonth() + 1).padStart(2, '0'),
+    dd: () => String(d.getDate()).padStart(2, '0'),
+    HH: () => String(d.getHours()).padStart(2, '0'),
+    mm: () => String(d.getMinutes()).padStart(2, '0'),
+    ss: () => String(d.getSeconds()).padStart(2, '0'),
+    MMM: () => d.toLocaleString('en', { month: 'short' }),
+    MMMM: () => d.toLocaleString('en', { month: 'long' }),
   };
 
   return Object.entries(tokens).reduce(
     (result, [token, getValue]) => result.replace(token, getValue()),
-    format
+    format,
   );
 }
 
@@ -349,21 +350,27 @@ export function relativeTime(date: Date | string): string {
   const now = new Date();
   const diffMs = now.getTime() - d.getTime();
   const diffSec = Math.floor(Math.abs(diffMs) / 1000);
-  
+
   const isFuture = diffMs < 0;
-  
+
   if (diffSec < 60) return isFuture ? 'in a few seconds' : 'a few seconds ago';
   if (diffSec < 3600) {
     const mins = Math.floor(diffSec / 60);
-    return isFuture ? `in ${mins} minute${mins > 1 ? 's' : ''}` : `${mins} minute${mins > 1 ? 's' : ''} ago`;
+    return isFuture
+      ? `in ${mins} minute${mins > 1 ? 's' : ''}`
+      : `${mins} minute${mins > 1 ? 's' : ''} ago`;
   }
   if (diffSec < 86400) {
     const hours = Math.floor(diffSec / 3600);
-    return isFuture ? `in ${hours} hour${hours > 1 ? 's' : ''}` : `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    return isFuture
+      ? `in ${hours} hour${hours > 1 ? 's' : ''}`
+      : `${hours} hour${hours > 1 ? 's' : ''} ago`;
   }
-  
+
   const days = Math.floor(diffSec / 86400);
-  return isFuture ? `in ${days} day${days > 1 ? 's' : ''}` : `${days} day${days > 1 ? 's' : ''} ago`;
+  return isFuture
+    ? `in ${days} day${days > 1 ? 's' : ''}`
+    : `${days} day${days > 1 ? 's' : ''} ago`;
 }
 ```
 
@@ -383,7 +390,7 @@ export function isValidPassword(
     requireLowercase?: boolean;
     requireNumbers?: boolean;
     requireSpecialChars?: boolean;
-  }
+  },
 ): boolean {
   const {
     minLength = 8,

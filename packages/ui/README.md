@@ -5,6 +5,7 @@ Shared React component library cho các frontend apps của Deskio platform.
 ## Mục đích
 
 UI package cung cấp:
+
 - Reusable React components với consistent design
 - Shared layouts và patterns
 - Design system components
@@ -86,13 +87,13 @@ function MyComponent() {
   return (
     <Card>
       <h2>Login Form</h2>
-      <Input 
-        type="email" 
+      <Input
+        type="email"
         placeholder="Enter email"
         label="Email Address"
       />
-      <Input 
-        type="password" 
+      <Input
+        type="password"
         placeholder="Enter password"
         label="Password"
       />
@@ -535,6 +536,7 @@ pnpm test:coverage
 6. Document API trong README
 
 Example:
+
 ```bash
 # Create new component
 mkdir components/NewComponent
@@ -545,6 +547,7 @@ touch components/NewComponent/index.ts
 ## Best Practices
 
 ### Component Design
+
 - ✅ Keep components small và focused
 - ✅ Use TypeScript for props
 - ✅ Export type definitions
@@ -552,12 +555,14 @@ touch components/NewComponent/index.ts
 - ✅ Handle edge cases
 
 ### Styling
+
 - ✅ Use TailwindCSS classes
 - ✅ Support className prop for extensibility
 - ✅ Use theme values
 - ✅ Responsive by default
 
 ### Accessibility
+
 - ✅ Semantic HTML
 - ✅ ARIA labels
 - ✅ Keyboard navigation
@@ -565,6 +570,7 @@ touch components/NewComponent/index.ts
 - ✅ Screen reader support
 
 ### Performance
+
 - ✅ Lazy load heavy components
 - ✅ Memoize expensive renders
 - ✅ Optimize re-renders

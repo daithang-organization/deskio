@@ -1,12 +1,8 @@
-/* eslint-env node */
 module.exports = {
-  root: true,
-  ignorePatterns: ['**/dist/**', '**/.next/**', '**/node_modules/**'],
+  root: false,
+  ignorePatterns: ['**/dist/**', '**/.next/**', '**/node_modules/**', '**/coverage/**'],
   parser: '@typescript-eslint/parser',
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-  },
+  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
   plugins: ['@typescript-eslint', 'unused-imports', 'simple-import-sort', 'import'],
   extends: [
     'eslint:recommended',
@@ -16,15 +12,10 @@ module.exports = {
     'prettier',
   ],
   rules: {
-    // hygiene
     'unused-imports/no-unused-imports': 'error',
     'unused-imports/no-unused-vars': ['warn', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
-
-    // import order
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
-
-    // keep TS rule set practical
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/consistent-type-imports': [
       'warn',
@@ -32,13 +23,6 @@ module.exports = {
     ],
   },
   settings: {
-    'import/resolver': {
-      typescript: true,
-    },
+    'import/resolver': { typescript: true },
   },
-};
-
-module.exports = {
-  root: true,
-  extends: ['@deskio/config/eslint/base'],
 };

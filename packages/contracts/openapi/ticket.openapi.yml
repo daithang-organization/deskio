@@ -17,7 +17,7 @@ paths:
       summary: Health check
       security: []
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -48,14 +48,14 @@ paths:
             type: string
             nullable: true
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListTicketsResponse"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
+                $ref: '#/components/schemas/ListTicketsResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
     post:
       tags: [Tickets]
@@ -67,18 +67,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateTicketRequest"
+              $ref: '#/components/schemas/CreateTicketRequest'
       responses:
-        "201":
+        '201':
           description: Created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TicketResponse"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
+                $ref: '#/components/schemas/TicketResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /tickets/{ticketId}:
     get:
@@ -93,16 +93,16 @@ paths:
           schema:
             type: string
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/TicketResponse"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
-        "404":
-          $ref: "#/components/responses/NotFound"
+                $ref: '#/components/schemas/TicketResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
 
 components:
   securitySchemes:
@@ -117,19 +117,19 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ErrorResponse"
+            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Unauthorized
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ErrorResponse"
+            $ref: '#/components/schemas/ErrorResponse'
     NotFound:
       description: Not found
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ErrorResponse"
+            $ref: '#/components/schemas/ErrorResponse'
 
   schemas:
     ErrorResponse:
@@ -198,7 +198,7 @@ components:
       type: object
       properties:
         data:
-          $ref: "#/components/schemas/Ticket"
+          $ref: '#/components/schemas/Ticket'
         meta:
           type: object
           properties:
@@ -213,13 +213,13 @@ components:
         data:
           type: array
           items:
-            $ref: "#/components/schemas/Ticket"
+            $ref: '#/components/schemas/Ticket'
         meta:
           type: object
           properties:
             requestId:
               type: string
             page:
-              $ref: "#/components/schemas/PageMeta"
+              $ref: '#/components/schemas/PageMeta'
           required: [requestId, page]
       required: [data, meta]

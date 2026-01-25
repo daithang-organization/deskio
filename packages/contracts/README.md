@@ -5,6 +5,7 @@ Shared API contracts, TypeScript types và OpenAPI specifications cho Deskio pla
 ## Mục đích
 
 Contracts package là **single source of truth** cho:
+
 - API request/response types
 - Shared data models
 - OpenAPI/Swagger specifications
@@ -564,6 +565,7 @@ pnpm lint
 ## Best Practices
 
 ### Type Definitions
+
 - ✅ Use interfaces over types for objects
 - ✅ Export all public types
 - ✅ Use enums for fixed values
@@ -571,17 +573,20 @@ pnpm lint
 - ✅ Keep types minimal và focused
 
 ### DTOs
+
 - ✅ Separate create/update DTOs
 - ✅ Use optional properties appropriately
 - ✅ Document validation rules
 - ✅ Match backend validation
 
 ### Enums
+
 - ✅ Use string enums (not numeric)
 - ✅ Use UPPER_SNAKE_CASE
 - ✅ Document enum values
 
 ### Versioning
+
 - ✅ Semantic versioning
 - ✅ Breaking changes = major version bump
 - ✅ New types = minor version bump
