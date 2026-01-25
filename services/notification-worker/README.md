@@ -5,6 +5,7 @@ Background worker service xử lý email notifications cho Deskio platform.
 ## Mục đích
 
 Notification Worker là background service chịu trách nhiệm:
+
 - Listen to notification events từ message queue (Redis/BullMQ)
 - Gửi email notifications cho users
 - Email template rendering
@@ -24,6 +25,7 @@ Notification Worker là background service chịu trách nhiệm:
 ## Features
 
 ### 1. Email Notifications
+
 - Ticket created (to customer)
 - Ticket replied (to customer/agent)
 - Ticket assigned (to agent)
@@ -33,6 +35,7 @@ Notification Worker là background service chịu trách nhiệm:
 - Email verification
 
 ### 2. Queue Processing
+
 - Listen to multiple event types
 - Concurrent job processing
 - Retry failed jobs
@@ -40,12 +43,14 @@ Notification Worker là background service chịu trách nhiệm:
 - Job prioritization
 
 ### 3. Template System
+
 - Dynamic email templates (Handlebars)
 - Template variables injection
 - Multi-language support (future)
 - HTML + plain text versions
 
 ### 4. Delivery Tracking
+
 - Log email sent status
 - Track delivery failures
 - Retry configuration
@@ -91,6 +96,7 @@ notification-worker/
 ## Event Types
 
 ### ticket.created
+
 ```typescript
 {
   type: 'ticket.created',
@@ -107,6 +113,7 @@ notification-worker/
 ```
 
 ### ticket.replied
+
 ```typescript
 {
   type: 'ticket.replied',
@@ -124,6 +131,7 @@ notification-worker/
 ```
 
 ### ticket.assigned
+
 ```typescript
 {
   type: 'ticket.assigned',
@@ -141,6 +149,7 @@ notification-worker/
 ```
 
 ### ticket.status_changed
+
 ```typescript
 {
   type: 'ticket.status_changed',
@@ -157,6 +166,7 @@ notification-worker/
 ```
 
 ### user.registered
+
 ```typescript
 {
   type: 'user.registered',
@@ -171,6 +181,7 @@ notification-worker/
 ```
 
 ### user.password_reset
+
 ```typescript
 {
   type: 'user.password_reset',
@@ -279,22 +290,22 @@ export class NotificationProcessor extends WorkerHost {
       switch (job.name) {
         case 'ticket.created':
           return await this.handleTicketCreated(job.data);
-        
+
         case 'ticket.replied':
           return await this.handleTicketReplied(job.data);
-        
+
         case 'ticket.assigned':
           return await this.handleTicketAssigned(job.data);
-        
+
         case 'ticket.status_changed':
           return await this.handleTicketStatusChanged(job.data);
-        
+
         case 'user.registered':
           return await this.handleUserRegistered(job.data);
-        
+
         case 'user.password_reset':
           return await this.handlePasswordReset(job.data);
-        
+
         default:
           this.logger.warn(`Unknown job type: ${job.name}`);
           return;
@@ -454,12 +465,7 @@ export class EmailService {
     });
   }
 
-  async send(options: {
-    to: string;
-    subject: string;
-    html: string;
-    text?: string;
-  }): Promise<void> {
+  async send(options: { to: string; subject: string; html: string; text?: string }): Promise<void> {
     try {
       const info = await this.transporter.sendMail({
         from: this.configService.get('EMAIL_FROM'),
@@ -499,7 +505,7 @@ export class TemplateService {
   async onModuleInit() {
     // Register partials
     await this.registerPartials();
-    
+
     // Precompile templates
     await this.loadTemplates();
   }
@@ -530,7 +536,7 @@ export class TemplateService {
 
   async render(templateName: string, data: any): Promise<string> {
     const template = this.templates.get(templateName);
-    
+
     if (!template) {
       throw new Error(`Template not found: ${templateName}`);
     }
@@ -543,6 +549,7 @@ export class TemplateService {
 ## Email Templates
 
 ### ticket-created.hbs
+
 ```handlebars
 {{> header}}
 
@@ -568,6 +575,7 @@ export class TemplateService {
 ```
 
 ### ticket-replied.hbs
+
 ```handlebars
 {{> header}}
 
@@ -613,7 +621,7 @@ import { BullModule } from '@nestjs/bullmq';
           delay: 2000,
         },
         removeOnComplete: 100, // Keep last 100 completed jobs
-        removeOnFail: 500,     // Keep last 500 failed jobs
+        removeOnFail: 500, // Keep last 500 failed jobs
       },
     }),
   ],
@@ -633,14 +641,12 @@ import { Queue } from 'bullmq';
 
 @Controller('health')
 export class HealthController {
-  constructor(
-    @InjectQueue('notifications') private notificationQueue: Queue,
-  ) {}
+  constructor(@InjectQueue('notifications') private notificationQueue: Queue) {}
 
   @Get()
   async check() {
     const jobCounts = await this.notificationQueue.getJobCounts();
-    
+
     return {
       status: 'ok',
       timestamp: new Date().toISOString(),
@@ -716,18 +722,21 @@ CMD ["node", "dist/main.js"]
 ## Troubleshooting
 
 ### Issue: Emails not sending
+
 - Check SMTP credentials
 - Verify SMTP server reachable
 - Check email logs
 - Test SMTP connection
 
 ### Issue: Jobs stuck in queue
+
 - Check Redis connection
 - Restart worker
 - Check queue status
 - Review failed jobs
 
 ### Issue: Templates not rendering
+
 - Verify template files exist
 - Check Handlebars syntax
 - Review template data

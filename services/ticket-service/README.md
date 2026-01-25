@@ -5,6 +5,7 @@ Backend service quản lý toàn bộ ticketing system của Deskio platform.
 ## Mục đích
 
 Ticket Service là core business service chịu trách nhiệm:
+
 - Ticket CRUD operations
 - Ticket workflow và status transitions
 - Reply và comment system
@@ -29,6 +30,7 @@ Ticket Service là core business service chịu trách nhiệm:
 ## Features
 
 ### 1. Ticket Management
+
 - Create tickets
 - View ticket details
 - Update ticket information
@@ -37,18 +39,21 @@ Ticket Service là core business service chịu trách nhiệm:
 - Duplicate detection
 
 ### 2. Ticket Workflow
+
 - Status transitions: Open → In Progress → Resolved → Closed
 - Priority levels: Low, Medium, High, Urgent
 - Automatic status updates
 - SLA tracking (optional MVP)
 
 ### 3. Assignment System
+
 - Assign tickets to agents
 - Reassign tickets
 - Auto-assignment rules (future)
 - Workload balancing (future)
 
 ### 4. Reply & Comments
+
 - Customer replies
 - Agent replies
 - Internal notes (agent-only)
@@ -56,6 +61,7 @@ Ticket Service là core business service chịu trách nhiệm:
 - Notification triggers
 
 ### 5. Attachments
+
 - Upload files to tickets/replies
 - Multiple file support
 - File validation (type, size)
@@ -63,6 +69,7 @@ Ticket Service là core business service chịu trách nhiệm:
 - File download links
 
 ### 6. Search & Filtering
+
 - Full-text search
 - Filter by status, priority, assignee
 - Date range filtering
@@ -131,22 +138,22 @@ model Ticket {
   description String       @db.Text
   status      TicketStatus @default(OPEN)
   priority    Priority     @default(MEDIUM)
-  
+
   customerId  String
   assignedTo  String?
   workspaceId String
-  
+
   categoryId  String?
   tags        String[]
-  
+
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
   closedAt    DateTime?
-  
+
   replies     Reply[]
   attachments Attachment[]
   activities  Activity[]
-  
+
   @@index([workspaceId])
   @@index([customerId])
   @@index([assignedTo])
@@ -158,16 +165,16 @@ model Reply {
   id         String   @id @default(uuid())
   ticketId   String
   ticket     Ticket   @relation(fields: [ticketId], references: [id])
-  
+
   authorId   String
   content    String   @db.Text
   isInternal Boolean  @default(false)
-  
+
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  
+
   attachments Attachment[]
-  
+
   @@index([ticketId])
   @@index([authorId])
 }
@@ -179,16 +186,16 @@ model Attachment {
   mimeType  String
   storageKey String  @unique
   url       String
-  
+
   ticketId  String?
   ticket    Ticket?  @relation(fields: [ticketId], references: [id])
-  
+
   replyId   String?
   reply     Reply?   @relation(fields: [replyId], references: [id])
-  
+
   uploadedBy String
   createdAt  DateTime @default(now())
-  
+
   @@index([ticketId])
   @@index([replyId])
 }
@@ -197,13 +204,13 @@ model Activity {
   id        String   @id @default(uuid())
   ticketId  String
   ticket    Ticket   @relation(fields: [ticketId], references: [id])
-  
+
   type      ActivityType
   actorId   String
   metadata  Json?
-  
+
   createdAt DateTime @default(now())
-  
+
   @@index([ticketId])
 }
 
@@ -238,7 +245,9 @@ enum ActivityType {
 ### Ticket Operations
 
 #### POST `/tickets`
+
 Create new ticket
+
 ```typescript
 // Request
 {
@@ -261,7 +270,9 @@ Create new ticket
 ```
 
 #### GET `/tickets`
+
 List tickets with filters
+
 ```typescript
 // Query: ?status=OPEN&priority=HIGH&assignedTo=agent-id&page=1&limit=20
 // Response
@@ -292,7 +303,9 @@ List tickets with filters
 ```
 
 #### GET `/tickets/:id`
+
 Get ticket details
+
 ```typescript
 // Response
 {
@@ -336,7 +349,9 @@ Get ticket details
 ```
 
 #### PATCH `/tickets/:id`
+
 Update ticket
+
 ```typescript
 // Request
 {
@@ -354,7 +369,9 @@ Update ticket
 ```
 
 #### POST `/tickets/:id/assign`
+
 Assign ticket to agent
+
 ```typescript
 // Request
 {
@@ -375,7 +392,9 @@ Assign ticket to agent
 ### Reply Operations
 
 #### POST `/tickets/:id/replies`
+
 Add reply to ticket
+
 ```typescript
 // Request
 {
@@ -398,7 +417,9 @@ Add reply to ticket
 ```
 
 #### GET `/tickets/:id/replies`
+
 Get all replies for ticket
+
 ```typescript
 // Response
 {
@@ -418,7 +439,9 @@ Get all replies for ticket
 ### Attachment Operations
 
 #### POST `/attachments/upload`
+
 Upload file
+
 ```typescript
 // Multipart form data
 // file: binary
@@ -435,7 +458,9 @@ Upload file
 ```
 
 #### GET `/attachments/:id/download`
+
 Download attachment
+
 ```typescript
 // Response: File stream
 ```
@@ -626,9 +651,7 @@ import { InjectQueue } from '@nestjs/bullmq';
 
 @Injectable()
 export class NotificationsService {
-  constructor(
-    @InjectQueue('notifications') private notificationQueue: Queue,
-  ) {}
+  constructor(@InjectQueue('notifications') private notificationQueue: Queue) {}
 
   async publishTicketCreated(ticket: any) {
     await this.notificationQueue.add('ticket.created', {
@@ -724,6 +747,7 @@ export class S3Service {
 ## Event-Driven Architecture
 
 Ticket Service publishes events to Redis queue:
+
 - `ticket.created` - When new ticket created
 - `ticket.replied` - When reply added
 - `ticket.assigned` - When ticket assigned
@@ -752,12 +776,14 @@ notification-worker subscribes to these events và gửi emails.
 ## Troubleshooting
 
 ### Issue: File upload failed
+
 - Check S3/MinIO configuration
 - Verify bucket exists và accessible
 - Check file size limits
 - Verify file type allowed
 
 ### Issue: Notifications not sent
+
 - Check Redis connection
 - Verify queue is running
 - Check notification-worker logs

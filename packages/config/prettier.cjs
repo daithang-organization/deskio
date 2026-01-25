@@ -4,5 +4,3 @@ module.exports = {
   trailingComma: 'all',
   printWidth: 100,
 };
-
-module.exports = require('@deskio/config/prettier');

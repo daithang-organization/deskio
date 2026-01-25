@@ -18,7 +18,7 @@ paths:
       summary: Health check
       security: []
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -40,18 +40,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/LoginRequest"
+              $ref: '#/components/schemas/LoginRequest'
       responses:
-        "200":
+        '200':
           description: Login success
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/LoginResponse"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /workspaces:
     get:
@@ -60,14 +60,14 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListWorkspacesResponse"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
+                $ref: '#/components/schemas/ListWorkspacesResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
 components:
   securitySchemes:
@@ -82,13 +82,13 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ErrorResponse"
+            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Unauthorized
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ErrorResponse"
+            $ref: '#/components/schemas/ErrorResponse'
 
   schemas:
     ErrorResponse:
@@ -125,7 +125,7 @@ components:
         password:
           type: string
           format: password
-          example: "********"
+          example: '********'
       required: [email, password]
 
     LoginResponse:
@@ -136,7 +136,7 @@ components:
           properties:
             accessToken:
               type: string
-              example: "jwt.token.here"
+              example: 'jwt.token.here'
           required: [accessToken]
         meta:
           type: object
@@ -151,10 +151,10 @@ components:
       properties:
         id:
           type: string
-          example: "ws_01H..."
+          example: 'ws_01H...'
         name:
           type: string
-          example: "Acme Inc"
+          example: 'Acme Inc'
       required: [id, name]
 
     ListWorkspacesResponse:
@@ -163,7 +163,7 @@ components:
         data:
           type: array
           items:
-            $ref: "#/components/schemas/Workspace"
+            $ref: '#/components/schemas/Workspace'
         meta:
           type: object
           properties:

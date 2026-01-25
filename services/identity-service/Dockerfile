@@ -2,23 +2,39 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Copy only necessary root-level manifests if you use workspace builds later.
-# For now, keep it service-local to be simple.
-COPY package.json ./
-RUN npm i -g pnpm@9.15.0 && pnpm install --frozen-lockfile || pnpm install
+# Copy workspace manifests
+COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
 
-COPY tsconfig.json nest-cli.json ./
-COPY src ./src
-RUN pnpm run build
+# Copy shared config package
+COPY packages/config/package.json ./packages/config/package.json
+COPY packages/config ./packages/config
+
+# Copy service files
+COPY services/identity-service/package.json ./services/identity-service/package.json
+
+# Install dependencies from workspace root
+RUN npm i -g pnpm@9.15.0 && pnpm install --frozen-lockfile --dev --filter=identity-service...
+
+# Copy service source and build
+COPY services/identity-service/tsconfig.json services/identity-service/nest-cli.json ./services/identity-service/
+COPY services/identity-service/src ./services/identity-service/src
+WORKDIR /app/services/identity-service
+RUN pnpm run build && \
+    echo "=== Checking build output ===" && \
+    ls -la && \
+    echo "=== Checking if dist exists ===" && \
+    ls -la dist || echo "dist not found" && \
+    echo "=== Checking parent directory ===" && \
+    ls -la /app
 
 # Runtime stage
 FROM node:20-alpine AS runner
 WORKDIR /app
 ENV NODE_ENV=production
 
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/services/identity-service/package.json ./package.json
+COPY --from=builder /app/services/identity-service/node_modules ./node_modules
+COPY --from=builder /app/services/identity-service/dist ./dist
 
 EXPOSE 3001
 CMD ["node", "dist/main.js"]

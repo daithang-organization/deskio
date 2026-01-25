@@ -77,6 +77,6 @@ jobs:
             if [ -f "$d/Dockerfile" ]; then
               name=$(basename "$d")
               echo "Building $name..."
-              docker build -t deskio/$name:ci "$d"
+              docker build -t deskio/$name:ci -f "$d/Dockerfile" .
             fi
           done

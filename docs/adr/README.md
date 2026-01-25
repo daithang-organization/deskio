@@ -5,6 +5,7 @@ Thư mục này chứa các Architecture Decision Records (ADRs) - tài liệu v
 ## Mục đích
 
 ADRs giúp:
+
 - Document lý do đằng sau các quyết định kỹ thuật quan trọng
 - Provide context cho team members hiện tại và tương lai
 - Track evolution của architecture qua thời gian
@@ -14,6 +15,7 @@ ADRs giúp:
 ## Khi nào tạo ADR?
 
 Tạo ADR khi:
+
 - ✅ Chọn tech stack major (framework, database, language)
 - ✅ Thay đổi architectural patterns
 - ✅ Chọn third-party services hoặc libraries quan trọng
@@ -24,6 +26,7 @@ Tạo ADR khi:
 - ✅ Deployment strategies
 
 Không cần ADR cho:
+
 - ❌ Minor bug fixes
 - ❌ Routine refactoring
 - ❌ UI/UX changes (unless architectural impact)
@@ -38,6 +41,7 @@ XXXX-title-in-kebab-case.md
 ```
 
 Examples:
+
 - `0001-use-nestjs-framework.md`
 - `0002-choose-postgresql-database.md`
 - `0003-implement-multi-tenant-workspace.md`
@@ -64,24 +68,29 @@ Date: YYYY-MM-DD
 ## Consequences
 
 ### Positive
+
 - [Benefit 1]
 - [Benefit 2]
 
 ### Negative
+
 - [Tradeoff 1]
 - [Tradeoff 2]
 
 ### Neutral
+
 - [Other impact]
 
 ## Alternatives Considered
 
 ### Alternative 1: [Name]
+
 - Pros: ...
 - Cons: ...
 - Why not chosen: ...
 
 ### Alternative 2: [Name]
+
 - Pros: ...
 - Cons: ...
 - Why not chosen: ...
@@ -109,6 +118,7 @@ Accepted
 ## Context
 
 We need to choose a Node.js framework for building our backend services (identity, ticket, kb, notification). Requirements:
+
 - TypeScript support
 - Good structure and scalability
 - Active community and ecosystem
@@ -122,6 +132,7 @@ We will use NestJS as our primary backend framework.
 ## Consequences
 
 ### Positive
+
 - Excellent TypeScript support out of the box
 - Angular-like architecture familiar to many developers
 - Built-in dependency injection
@@ -130,6 +141,7 @@ We will use NestJS as our primary backend framework.
 - Active community and good documentation
 
 ### Negative
+
 - Steeper learning curve than Express
 - More opinionated (less flexibility)
 - Larger bundle size
@@ -137,16 +149,19 @@ We will use NestJS as our primary backend framework.
 ## Alternatives Considered
 
 ### Alternative 1: Express.js
+
 - Pros: Lightweight, flexible, huge ecosystem
 - Cons: Minimal structure, need to add everything manually
 - Why not: Need more structure for team collaboration
 
 ### Alternative 2: Fastify
+
 - Pros: Very fast, good TypeScript support
 - Cons: Smaller ecosystem, less batteries-included
 - Why not: NestJS provides more out-of-the-box features
 
 ## References
+
 - [NestJS Documentation](https://docs.nestjs.com/)
 - Team discussion: Slack thread (link)
 ```
@@ -165,12 +180,14 @@ Accepted
 ## Context
 
 Need to select a database for storing:
+
 - User and authentication data
 - Tickets and replies
 - Knowledge base articles
 - Multi-tenant workspace data
 
 Requirements:
+
 - ACID compliance
 - Complex queries support
 - Full-text search
@@ -184,6 +201,7 @@ We will use PostgreSQL as our primary database for all services.
 ## Consequences
 
 ### Positive
+
 - ACID compliance ensures data consistency
 - Excellent support for complex queries and joins
 - Built-in full-text search
@@ -193,6 +211,7 @@ We will use PostgreSQL as our primary database for all services.
 - Free and open source
 
 ### Negative
+
 - Requires more setup than NoSQL
 - Vertical scaling limitations (mitigated by proper design)
 - Schema migrations needed for changes
@@ -200,16 +219,19 @@ We will use PostgreSQL as our primary database for all services.
 ## Alternatives Considered
 
 ### Alternative 1: MongoDB
+
 - Pros: Flexible schema, easy to start
 - Cons: No ACID transactions (in older versions), eventual consistency issues
 - Why not: Need strong consistency for tickets and transactions
 
 ### Alternative 2: MySQL
+
 - Pros: Popular, good performance
 - Cons: Less advanced features than PostgreSQL
 - Why not: PostgreSQL offers more features we need (JSON, full-text search)
 
 ## References
+
 - [PostgreSQL Documentation](https://www.postgresql.org/docs/)
 - [Why Postgres?](https://www.postgresql.org/about/)
 ```
@@ -228,11 +250,13 @@ Accepted
 ## Context
 
 Deskio needs to support multiple workspaces (organizations) on the same infrastructure. Need to decide on multi-tenancy approach:
+
 - Separate database per workspace
 - Shared database with workspace_id
 - Schema per workspace
 
 Requirements:
+
 - Data isolation
 - Cost-effective
 - Scalable
@@ -245,6 +269,7 @@ We will implement multi-tenancy using a shared database with workspace_id column
 ## Consequences
 
 ### Positive
+
 - Simple to implement and maintain
 - Cost-effective (single database)
 - Easy to add new workspaces
@@ -253,28 +278,33 @@ We will implement multi-tenancy using a shared database with workspace_id column
 - Can add row-level security (RLS) later
 
 ### Negative
+
 - Must be careful with queries (always filter by workspace_id)
 - Risk of data leakage if queries miss workspace_id
 - All workspaces share resources
 - Noisy neighbor problem possible
 
 ### Neutral
+
 - Need strict code review for all queries
 - Need workspace-aware ORM/query patterns
 
 ## Alternatives Considered
 
 ### Alternative 1: Separate Database Per Workspace
+
 - Pros: Complete isolation, easy to scale per customer
 - Cons: Complex management, expensive, hard to do cross-workspace analytics
 - Why not: Too complex for MVP, over-engineering
 
 ### Alternative 2: Schema Per Workspace
+
 - Pros: Better isolation than shared tables
 - Cons: Migration complexity, limited by DB schema limits
 - Why not: More complexity than needed for MVP
 
 ## Implementation Notes
+
 - Add workspace_id to all data models
 - Create middleware to inject workspace_id
 - Add database indexes on workspace_id
@@ -282,6 +312,7 @@ We will implement multi-tenancy using a shared database with workspace_id column
 - Consider PostgreSQL RLS for future
 
 ## References
+
 - [Multi-Tenancy Patterns](https://docs.microsoft.com/en-us/azure/architecture/guide/multitenant/approaches/overview)
 - Internal design doc: (link)
 ```
@@ -291,6 +322,7 @@ We will implement multi-tenancy using a shared database with workspace_id column
 ### Creating New ADR
 
 1. **Copy template:**
+
    ```bash
    cp docs/adr/0000-template.md docs/adr/XXXX-your-decision.md
    ```
@@ -321,6 +353,7 @@ ADRs are immutable once accepted. To change a decision:
 3. Reference old ADR in new one
 
 Example:
+
 ```markdown
 # 5. Use Elasticsearch for Full-Text Search
 
@@ -374,13 +407,13 @@ PostgreSQL full-text search is insufficient for our growing needs...
 
 Maintain index of all ADRs:
 
-| Number | Title | Status | Date |
-|--------|-------|--------|------|
-| [0000](0000-template.md) | ADR Template | Template | - |
-| [0001](0001-use-nestjs.md) | Use NestJS Framework | Accepted | 2026-01-15 |
-| [0002](0002-choose-postgresql.md) | Choose PostgreSQL | Accepted | 2026-01-15 |
+| Number                                 | Title                         | Status   | Date       |
+| -------------------------------------- | ----------------------------- | -------- | ---------- |
+| [0000](0000-template.md)               | ADR Template                  | Template | -          |
+| [0001](0001-use-nestjs.md)             | Use NestJS Framework          | Accepted | 2026-01-15 |
+| [0002](0002-choose-postgresql.md)      | Choose PostgreSQL             | Accepted | 2026-01-15 |
 | [0003](0003-multi-tenant-workspace.md) | Multi-Tenant via Workspace ID | Accepted | 2026-01-16 |
-| ... | ... | ... | ... |
+| ...                                    | ...                           | ...      | ...        |
 
 ## Tools
 

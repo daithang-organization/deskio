@@ -1,0 +1,10 @@
+{
+  "extends": "@deskio/config/tsconfig/base",
+  "compilerOptions": {
+    "lib": ["ES2022", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "preserve",
+    "noEmit": true
+  }
+}

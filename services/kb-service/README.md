@@ -5,6 +5,7 @@ Backend service quản lý Knowledge Base (KB) của Deskio platform.
 ## Mục đích
 
 KB Service chịu trách nhiệm:
+
 - CRUD operations cho Knowledge Base articles
 - Article categorization và tagging
 - Publish/unpublish workflow
@@ -27,6 +28,7 @@ KB Service chịu trách nhiệm:
 ## Features
 
 ### 1. Article Management
+
 - Create articles (draft mode)
 - Edit articles
 - Delete articles (soft delete)
@@ -35,6 +37,7 @@ KB Service chịu trách nhiệm:
 - Rich text content support
 
 ### 2. Organization
+
 - Categories management
 - Tags/labels
 - Featured articles
@@ -42,18 +45,21 @@ KB Service chịu trách nhiệm:
 - Related articles linking
 
 ### 3. Search
+
 - Full-text search trong articles
 - Search by category
 - Search by tags
 - Search results relevance scoring
 
 ### 4. Metrics & Analytics
+
 - View count tracking
 - Helpful/not helpful votes
 - Popular articles
 - Search analytics
 
 ### 5. Public Access
+
 - Public API cho published articles
 - Customer-facing article viewing
 - Agent access to all articles (including drafts)
@@ -116,27 +122,27 @@ model Article {
   content     String        @db.Text
   excerpt     String?       @db.Text
   status      ArticleStatus @default(DRAFT)
-  
+
   categoryId  String?
   category    Category?     @relation(fields: [categoryId], references: [id])
-  
+
   tags        String[]
   isFeatured  Boolean       @default(false)
-  
+
   authorId    String
   workspaceId String
-  
+
   viewCount   Int           @default(0)
   helpfulCount Int          @default(0)
   notHelpfulCount Int       @default(0)
-  
+
   publishedAt DateTime?
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
-  
+
   images      ArticleImage[]
   votes       ArticleVote[]
-  
+
   @@index([workspaceId])
   @@index([categoryId])
   @@index([status])
@@ -152,16 +158,16 @@ model Category {
   icon        String?
   order       Int       @default(0)
   workspaceId String
-  
+
   parentId    String?
   parent      Category? @relation("CategoryHierarchy", fields: [parentId], references: [id])
   children    Category[] @relation("CategoryHierarchy")
-  
+
   articles    Article[]
-  
+
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  
+
   @@index([workspaceId])
   @@index([parentId])
 }
@@ -170,13 +176,13 @@ model ArticleImage {
   id         String   @id @default(uuid())
   articleId  String
   article    Article  @relation(fields: [articleId], references: [id])
-  
+
   filename   String
   storageKey String   @unique
   url        String
-  
+
   createdAt  DateTime @default(now())
-  
+
   @@index([articleId])
 }
 
@@ -184,13 +190,13 @@ model ArticleVote {
   id        String   @id @default(uuid())
   articleId String
   article   Article  @relation(fields: [articleId], references: [id])
-  
+
   userId    String?
   isHelpful Boolean
   feedback  String?  @db.Text
-  
+
   createdAt DateTime @default(now())
-  
+
   @@index([articleId])
   @@unique([articleId, userId])
 }
@@ -207,7 +213,9 @@ enum ArticleStatus {
 ### Public Endpoints (No Auth Required)
 
 #### GET `/kb/articles`
+
 List published articles
+
 ```typescript
 // Query: ?category=slug&tag=security&featured=true&page=1&limit=20
 // Response
@@ -237,7 +245,9 @@ List published articles
 ```
 
 #### GET `/kb/articles/:slug`
+
 Get article by slug
+
 ```typescript
 // Response
 {
@@ -269,7 +279,9 @@ Get article by slug
 ```
 
 #### GET `/kb/categories`
+
 List all categories
+
 ```typescript
 // Response
 {
@@ -294,7 +306,9 @@ List all categories
 ```
 
 #### GET `/kb/search`
+
 Search articles
+
 ```typescript
 // Query: ?q=password+reset&category=account-management
 // Response
@@ -319,7 +333,9 @@ Search articles
 ```
 
 #### POST `/kb/articles/:id/vote`
+
 Vote on article helpfulness
+
 ```typescript
 // Request
 {
@@ -338,7 +354,9 @@ Vote on article helpfulness
 ### Protected Endpoints (Admin/Agent Only)
 
 #### POST `/kb/articles`
+
 Create article (Admin/Agent)
+
 ```typescript
 // Request
 {
@@ -363,7 +381,9 @@ Create article (Admin/Agent)
 ```
 
 #### PATCH `/kb/articles/:id`
+
 Update article (Admin/Agent)
+
 ```typescript
 // Request
 {
@@ -381,7 +401,9 @@ Update article (Admin/Agent)
 ```
 
 #### POST `/kb/articles/:id/publish`
+
 Publish article (Admin)
+
 ```typescript
 // Response
 {
@@ -392,7 +414,9 @@ Publish article (Admin)
 ```
 
 #### POST `/kb/articles/:id/unpublish`
+
 Unpublish article (Admin)
+
 ```typescript
 // Response
 {
@@ -403,7 +427,9 @@ Unpublish article (Admin)
 ```
 
 #### DELETE `/kb/articles/:id`
+
 Delete article (Admin)
+
 ```typescript
 // Response
 {
@@ -412,7 +438,9 @@ Delete article (Admin)
 ```
 
 #### GET `/kb/articles/admin`
+
 Get all articles including drafts (Admin/Agent)
+
 ```typescript
 // Query: ?status=DRAFT&author=uuid
 // Response
@@ -430,7 +458,9 @@ Get all articles including drafts (Admin/Agent)
 ```
 
 #### POST `/kb/categories`
+
 Create category (Admin)
+
 ```typescript
 // Request
 {
@@ -450,7 +480,9 @@ Create category (Admin)
 ```
 
 #### POST `/kb/articles/:id/images/upload`
+
 Upload image for article
+
 ```typescript
 // Multipart form data
 // Response
@@ -621,10 +653,7 @@ export class ArticlesService {
         id: { not: article.id },
         workspaceId: article.workspaceId,
         status: 'PUBLISHED',
-        OR: [
-          { categoryId: article.categoryId },
-          { tags: { hasSome: article.tags } },
-        ],
+        OR: [{ categoryId: article.categoryId }, { tags: { hasSome: article.tags } }],
       },
       select: {
         id: true,
@@ -748,11 +777,13 @@ async voteArticle(
 ## Troubleshooting
 
 ### Issue: Search not working
+
 - Check full-text indexes
 - Verify PostgreSQL configuration
 - Test queries directly in DB
 
 ### Issue: Images not loading
+
 - Check S3/MinIO configuration
 - Verify bucket CORS settings
 - Check presigned URL generation

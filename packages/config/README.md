@@ -5,6 +5,7 @@ Shared configuration files cho tất cả workspaces trong Deskio monorepo.
 ## Mục đích
 
 Config package cung cấp:
+
 - Base TypeScript configuration
 - Shared ESLint rules
 - Prettier configuration
@@ -112,11 +113,7 @@ Base configuration được extend bởi tất cả apps và services:
 ```javascript
 // eslint.config.js
 module.exports = {
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier',
-  ],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier'],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
   rules: {
@@ -128,6 +125,7 @@ module.exports = {
 ```
 
 ### Usage:
+
 ```json
 // apps/customer-portal/.eslintrc.js
 module.exports = {
@@ -153,6 +151,7 @@ module.exports = {
 ```
 
 ### Usage:
+
 ```json
 // package.json (root or workspace)
 {
@@ -169,11 +168,7 @@ module.exports = {
   testEnvironment: 'node',
   roots: ['<rootDir>/src', '<rootDir>/test'],
   testMatch: ['**/*.spec.ts', '**/*.test.ts'],
-  collectCoverageFrom: [
-    'src/**/*.ts',
-    '!src/**/*.d.ts',
-    '!src/**/*.interface.ts',
-  ],
+  collectCoverageFrom: ['src/**/*.ts', '!src/**/*.d.ts', '!src/**/*.interface.ts'],
   coverageDirectory: 'coverage',
   coverageReporters: ['text', 'lcov', 'html'],
 };
@@ -201,6 +196,7 @@ Recommended path aliases trong tsconfig:
 ## Strict Mode
 
 Base config enables TypeScript strict mode:
+
 - `strict: true`
 - `noImplicitAny: true`
 - `strictNullChecks: true`
@@ -213,6 +209,7 @@ Base config enables TypeScript strict mode:
 ## Additional Checks
 
 Enabled checks for better code quality:
+
 - `noUnusedLocals: true` - Error on unused local variables
 - `noUnusedParameters: true` - Error on unused parameters
 - `noImplicitReturns: true` - Error when function doesn't return
@@ -221,16 +218,19 @@ Enabled checks for better code quality:
 ## Benefits
 
 ### Consistency
+
 - All workspaces follow same rules
 - Single source of truth
 - Easier code reviews
 
 ### Maintainability
+
 - Update configs in one place
 - Changes propagate to all workspaces
 - Easier onboarding
 
 ### Type Safety
+
 - Strict TypeScript checks
 - Catch errors early
 - Better IDE support
@@ -247,6 +247,7 @@ Enabled checks for better code quality:
 ### Testing Configs
 
 Test config changes bằng cách:
+
 ```bash
 # Từ workspace that extends config
 pnpm typecheck

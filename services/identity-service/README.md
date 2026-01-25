@@ -5,6 +5,7 @@ Backend service quản lý authentication, authorization và user management cho
 ## Mục đích
 
 Identity Service là core service chịu trách nhiệm:
+
 - User authentication (login/logout/register)
 - JWT token generation và validation
 - RBAC implementation (Admin/Agent/Customer roles)
@@ -27,6 +28,7 @@ Identity Service là core service chịu trách nhiệm:
 ## Features
 
 ### 1. Authentication
+
 - User login với email/password
 - JWT token generation (access + refresh tokens)
 - Token validation và refresh
@@ -35,12 +37,14 @@ Identity Service là core service chịu trách nhiệm:
 - Account lockout sau multiple failed attempts (optional)
 
 ### 2. User Registration
+
 - Self-registration cho customers
 - Email verification
 - Welcome email notification
 - Default role assignment (CUSTOMER)
 
 ### 3. User Management
+
 - CRUD operations cho users
 - Role assignment (Admin only)
 - User activation/deactivation
@@ -49,12 +53,14 @@ Identity Service là core service chịu trách nhiệm:
 - Password reset flow
 
 ### 4. Workspace Management
+
 - Multi-tenant workspace isolation
 - Workspace CRUD
 - Workspace membership
 - Workspace settings
 
 ### 5. RBAC (Role-Based Access Control)
+
 - Three roles: ADMIN, AGENT, CUSTOMER
 - Permission checking middleware
 - Role-based route guards
@@ -137,7 +143,7 @@ model Workspace {
   settings  Json?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  
+
   users     User[]
 }
 
@@ -154,7 +160,7 @@ model User {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   lastLoginAt  DateTime?
-  
+
   @@index([workspaceId])
   @@index([email])
 }
@@ -177,7 +183,9 @@ enum UserStatus {
 ### Authentication
 
 #### POST `/auth/register`
+
 Register new customer account
+
 ```typescript
 // Request
 {
@@ -201,7 +209,9 @@ Register new customer account
 ```
 
 #### POST `/auth/login`
+
 User login
+
 ```typescript
 // Request
 {
@@ -218,7 +228,9 @@ User login
 ```
 
 #### POST `/auth/refresh`
+
 Refresh access token
+
 ```typescript
 // Request
 {
@@ -232,7 +244,9 @@ Refresh access token
 ```
 
 #### POST `/auth/logout`
+
 Logout user (invalidate tokens)
+
 ```typescript
 // Headers
 Authorization: Bearer {token}
@@ -244,7 +258,9 @@ Authorization: Bearer {token}
 ```
 
 #### POST `/auth/forgot-password`
+
 Request password reset
+
 ```typescript
 // Request
 {
@@ -258,7 +274,9 @@ Request password reset
 ```
 
 #### POST `/auth/reset-password`
+
 Reset password with token
+
 ```typescript
 // Request
 {
@@ -275,7 +293,9 @@ Reset password with token
 ### User Management
 
 #### GET `/users`
+
 Get all users (Admin only, paginated)
+
 ```typescript
 // Query params: ?page=1&limit=20&role=AGENT
 // Headers: Authorization: Bearer {token}
@@ -301,7 +321,9 @@ Get all users (Admin only, paginated)
 ```
 
 #### GET `/users/:id`
+
 Get user by ID
+
 ```typescript
 // Response
 {
@@ -317,7 +339,9 @@ Get user by ID
 ```
 
 #### POST `/users`
+
 Create user (Admin only)
+
 ```typescript
 // Request
 {
@@ -338,7 +362,9 @@ Create user (Admin only)
 ```
 
 #### PATCH `/users/:id`
+
 Update user
+
 ```typescript
 // Request
 {
@@ -355,7 +381,9 @@ Update user
 ```
 
 #### DELETE `/users/:id`
+
 Delete/deactivate user (Admin only)
+
 ```typescript
 // Response
 {
@@ -366,7 +394,9 @@ Delete/deactivate user (Admin only)
 ### Workspace Management
 
 #### GET `/workspaces`
+
 Get all workspaces
+
 ```typescript
 // Response
 {
@@ -382,7 +412,9 @@ Get all workspaces
 ```
 
 #### POST `/workspaces`
+
 Create workspace (Admin only)
+
 ```typescript
 // Request
 {
@@ -504,11 +536,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: any) {
     const user = await this.usersService.findById(payload.sub);
-    
+
     if (!user || user.status !== 'ACTIVE') {
       throw new UnauthorizedException();
     }
-    
+
     return user;
   }
 }
@@ -531,11 +563,11 @@ export class RolesGuard implements CanActivate {
       context.getHandler(),
       context.getClass(),
     ]);
-    
+
     if (!requiredRoles) {
       return true;
     }
-    
+
     const { user } = context.switchToHttp().getRequest();
     return requiredRoles.some((role) => user.role === role);
   }
@@ -631,16 +663,19 @@ export class LoggingInterceptor implements NestInterceptor {
 ## Troubleshooting
 
 ### Issue: JWT token invalid
+
 - Verify JWT_SECRET matches
 - Check token expiration
 - Ensure Bearer token format
 
 ### Issue: Database connection failed
+
 - Check DATABASE_URL
 - Verify PostgreSQL is running
 - Run migrations: `npx prisma migrate deploy`
 
 ### Issue: Password hashing slow
+
 - Adjust bcrypt salt rounds (default: 10)
 - Consider async hashing
 

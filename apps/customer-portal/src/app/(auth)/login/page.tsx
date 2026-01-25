@@ -18,10 +18,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <button
-          className="mt-4 w-full rounded-md bg-black px-4 py-2 text-white"
-          type="button"
-        >
+        <button className="mt-4 w-full rounded-md bg-black px-4 py-2 text-white" type="button">
           Continue (stub)
         </button>
       </div>

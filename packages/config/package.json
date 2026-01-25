@@ -1,0 +1,20 @@
+{
+  "name": "@deskio/config",
+  "private": true,
+  "version": "0.0.0",
+  "main": "index.js",
+  "exports": {
+    "./eslint/base": "./eslint/base.cjs",
+    "./eslint/next": "./eslint/next.cjs",
+    "./eslint/nest": "./eslint/nest.cjs",
+    "./tsconfig/base": "./tsconfig/base.json",
+    "./tsconfig/next": "./tsconfig/next.json",
+    "./tsconfig/nest": "./tsconfig/nest.json",
+    "./prettier": "./prettier.cjs"
+  },
+  "peerDependencies": {
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.0",
+    "typescript": "^5.5.0"
+  }
+}

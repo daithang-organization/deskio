@@ -17,7 +17,7 @@ paths:
       summary: Health check
       security: []
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -36,14 +36,14 @@ paths:
       security:
         - bearerAuth: []
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ListArticlesResponse"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
+                $ref: '#/components/schemas/ListArticlesResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
     post:
       tags: [Articles]
@@ -55,18 +55,18 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CreateArticleRequest"
+              $ref: '#/components/schemas/CreateArticleRequest'
       responses:
-        "201":
+        '201':
           description: Created
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ArticleResponse"
-        "400":
-          $ref: "#/components/responses/BadRequest"
-        "401":
-          $ref: "#/components/responses/Unauthorized"
+                $ref: '#/components/schemas/ArticleResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
 components:
   securitySchemes:
@@ -81,13 +81,13 @@ components:
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ErrorResponse"
+            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Unauthorized
       content:
         application/json:
           schema:
-            $ref: "#/components/schemas/ErrorResponse"
+            $ref: '#/components/schemas/ErrorResponse'
 
   schemas:
     ErrorResponse:
@@ -142,7 +142,7 @@ components:
       type: object
       properties:
         data:
-          $ref: "#/components/schemas/Article"
+          $ref: '#/components/schemas/Article'
         meta:
           type: object
           properties:
@@ -157,7 +157,7 @@ components:
         data:
           type: array
           items:
-            $ref: "#/components/schemas/Article"
+            $ref: '#/components/schemas/Article'
         meta:
           type: object
           properties:

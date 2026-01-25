@@ -15,23 +15,27 @@ Base template for Deskio microservices using NestJS.
 ## Getting Started
 
 ### 1. Copy the template
+
 ```bash
 cp -r services/_template-nest services/your-service-name
 cd services/your-service-name
 ```
 
 ### 2. Setup environment
+
 ```bash
 cp .env.example .env
 # Edit .env with your configuration
 ```
 
 ### 3. Install dependencies
+
 ```bash
 pnpm install
 ```
 
 ### 4. Development
+
 ```bash
 pnpm dev        # Start with watch mode
 pnpm build      # Build for production
@@ -61,12 +65,14 @@ src/
 See [.env.example](.env.example) for all available variables.
 
 Required:
+
 - `NODE_ENV` - Environment (development/test/production)
 - `PORT` - Service port (default: 3001)
 
 ## Docker
 
 Build and run:
+
 ```bash
 docker build -t your-service .
 docker run -p 3001:3001 your-service
@@ -75,6 +81,7 @@ docker run -p 3001:3001 your-service
 ## API Standards
 
 ### Success Response
+
 ```json
 {
   "data": { ... }
@@ -82,6 +89,7 @@ docker run -p 3001:3001 your-service
 ```
 
 ### Error Response
+
 ```json
 {
   "error": {
