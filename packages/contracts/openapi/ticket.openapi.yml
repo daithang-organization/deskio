@@ -1,0 +1,225 @@
+openapi: 3.0.3
+info:
+  title: Deskio Ticket Service API
+  version: 1.0.0
+  license:
+    name: Proprietary
+servers:
+  - url: /api/v1
+tags:
+  - name: Health
+  - name: Tickets
+
+paths:
+  /healthz:
+    get:
+      tags: [Health]
+      summary: Health check
+      security: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                required: [status]
+
+  /tickets:
+    get:
+      tags: [Tickets]
+      summary: List tickets (cursor pagination placeholder)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+        - name: cursor
+          in: query
+          schema:
+            type: string
+            nullable: true
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListTicketsResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+    post:
+      tags: [Tickets]
+      summary: Create ticket (placeholder)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateTicketRequest"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TicketResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /tickets/{ticketId}:
+    get:
+      tags: [Tickets]
+      summary: Get ticket detail
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: ticketId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TicketResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              example: NOT_FOUND
+            message:
+              type: string
+              example: Ticket not found
+            details:
+              type: object
+              nullable: true
+          required: [code, message]
+        meta:
+          type: object
+          properties:
+            requestId:
+              type: string
+          required: [requestId]
+      required: [error, meta]
+
+    PageMeta:
+      type: object
+      properties:
+        limit:
+          type: integer
+          example: 20
+        nextCursor:
+          type: string
+          nullable: true
+        hasNext:
+          type: boolean
+          example: true
+      required: [limit, nextCursor, hasNext]
+
+    Ticket:
+      type: object
+      properties:
+        id:
+          type: string
+        subject:
+          type: string
+        status:
+          type: string
+          enum: [open, pending, resolved, closed]
+        createdAt:
+          type: string
+          format: date-time
+      required: [id, subject, status, createdAt]
+
+    CreateTicketRequest:
+      type: object
+      properties:
+        subject:
+          type: string
+        description:
+          type: string
+      required: [subject, description]
+
+    TicketResponse:
+      type: object
+      properties:
+        data:
+          $ref: "#/components/schemas/Ticket"
+        meta:
+          type: object
+          properties:
+            requestId:
+              type: string
+          required: [requestId]
+      required: [data, meta]
+
+    ListTicketsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Ticket"
+        meta:
+          type: object
+          properties:
+            requestId:
+              type: string
+            page:
+              $ref: "#/components/schemas/PageMeta"
+          required: [requestId, page]
+      required: [data, meta]

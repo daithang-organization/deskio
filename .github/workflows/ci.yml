@@ -35,6 +35,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: OpenAPI lint
+        run: pnpm openapi:lint
+
       - name: Lint
         run: pnpm lint
 

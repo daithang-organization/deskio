@@ -1,0 +1,12 @@
+apis:
+  identity:
+    root: packages/contracts/openapi/identity.openapi.yml
+  ticket:
+    root: packages/contracts/openapi/ticket.openapi.yml
+  kb:
+    root: packages/contracts/openapi/kb.openapi.yml
+
+rules:
+  no-unused-components: error
+  operation-operationId: off
+  no-server-example.com: off

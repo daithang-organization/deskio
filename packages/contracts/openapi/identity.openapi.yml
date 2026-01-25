@@ -1,0 +1,173 @@
+openapi: 3.0.3
+info:
+  title: Deskio Identity Service API
+  version: 1.0.0
+  license:
+    name: Proprietary
+servers:
+  - url: /api/v1
+tags:
+  - name: Health
+  - name: Auth
+  - name: Workspaces
+
+paths:
+  /healthz:
+    get:
+      tags: [Health]
+      summary: Health check
+      security: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                required: [status]
+
+  /auth/login:
+    post:
+      tags: [Auth]
+      summary: Login (placeholder)
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+      responses:
+        "200":
+          description: Login success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /workspaces:
+    get:
+      tags: [Workspaces]
+      summary: List workspaces of current user
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ListWorkspacesResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+              example: VALIDATION_ERROR
+            message:
+              type: string
+              example: Invalid request
+            details:
+              type: object
+              nullable: true
+          required: [code, message]
+        meta:
+          type: object
+          properties:
+            requestId:
+              type: string
+              example: 3f2a2b3a-9db5-4c1f-b3b0-0cbe7a0d4e75
+      required: [error, meta]
+
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+          example: user@deskio.dev
+        password:
+          type: string
+          format: password
+          example: "********"
+      required: [email, password]
+
+    LoginResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            accessToken:
+              type: string
+              example: "jwt.token.here"
+          required: [accessToken]
+        meta:
+          type: object
+          properties:
+            requestId:
+              type: string
+          required: [requestId]
+      required: [data, meta]
+
+    Workspace:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "ws_01H..."
+        name:
+          type: string
+          example: "Acme Inc"
+      required: [id, name]
+
+    ListWorkspacesResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: "#/components/schemas/Workspace"
+        meta:
+          type: object
+          properties:
+            requestId:
+              type: string
+          required: [requestId]
+      required: [data, meta]
