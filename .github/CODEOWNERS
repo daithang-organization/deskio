@@ -1,7 +1,7 @@
 * @daithang-organization/maintainers
 
 /.github/ @daithang-organization/devops
-/CODEOWNERS @daithang-organization/devops
+/.claude/ @daithang-organization/platform
 /docs/ @daithang-organization/platform
 /infra/ @daithang-organization/devops
 

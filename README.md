@@ -84,10 +84,10 @@ Xem thêm chi tiết tại `infra/README.md`.
 - [API Conventions](docs/api-conventions.md) — REST/OpenAPI standards
 - [Development](docs/development.md) — Development workflows
 - [ADR Templates](docs/adr/0000-template.md) — Architecture Decision Records
-- [Contributing](CONTRIBUTING.md) — Contribution guidelines
-- [Security](SECURITY.md) — Security policies
-- [Code of Conduct](CODE_OF_CONDUCT.md)
-- [Changelog](CHANGELOG.md)
+- [Contributing](docs/CONTRIBUTING.md) — Contribution guidelines
+- [Security](.github/SECURITY.md) — Security policies
+- [Code of Conduct](docs/CODE_OF_CONDUCT.md)
+- [Changelog](docs/CHANGELOG.md)
 
 ## Repo Structure
 
@@ -111,10 +111,15 @@ infra/
 docs/
   api-conventions.md
   architecture.md
+  CHANGELOG.md
+  CODE_OF_CONDUCT.md
+  CONTRIBUTING.md
 .github/
   workflows/
   ISSUE_TEMPLATE/
-CODEOWNERS
+  CODEOWNERS
+  SECURITY.md
+.claude/           # AI Agent instructions
 ```
 
 ## Thành viên
@@ -125,8 +130,8 @@ CODEOWNERS
 
 ## Đóng góp và pháp lý
 
-- Đóng góp: `CONTRIBUTING.md`
-- Bảo mật: `SECURITY.md`
-- Hành vi: `CODE_OF_CONDUCT.md`
-- Thay đổi: `CHANGELOG.md`
-- License: `LICENSE`
+- Đóng góp: [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md)
+- Bảo mật: [`.github/SECURITY.md`](.github/SECURITY.md)
+- Hành vi: [`docs/CODE_OF_CONDUCT.md`](docs/CODE_OF_CONDUCT.md)
+- Thay đổi: [`docs/CHANGELOG.md`](docs/CHANGELOG.md)
+- License: [`LICENSE`](LICENSE)

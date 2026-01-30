@@ -206,4 +206,4 @@ If you have other services running on these ports, you can either:
 
 - Read [Architecture Documentation](./architecture.md)
 - Review [API Conventions](./api-conventions.md)
-- Check [Contributing Guidelines](../CONTRIBUTING.md)
+- Check [Contributing Guidelines](./CONTRIBUTING.md)

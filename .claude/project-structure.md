@@ -24,11 +24,29 @@ deskio/
 │   ├── docker-compose.yml  # Local dev environment
 │   ├── k8s/               # Kubernetes manifests
 │   └── local/             # Local development scripts
-└── docs/             # Documentation
-    ├── architecture.md
-    ├── api-conventions.md
-    ├── development.md
-    └── adr/              # Architecture Decision Records
+├── docs/             # Documentation
+│   ├── architecture.md
+│   ├── api-conventions.md
+│   ├── development.md
+│   ├── local-dev.md
+│   ├── CHANGELOG.md       # Release history
+│   ├── CONTRIBUTING.md    # Contribution guidelines
+│   ├── CODE_OF_CONDUCT.md # Community guidelines
+│   └── adr/              # Architecture Decision Records
+├── .claude/          # AI Agent instructions
+│   ├── project-structure.md
+│   ├── coding-conventions.md
+│   ├── api-patterns.md
+│   ├── database-schema.md
+│   ├── common-workflows.md
+│   └── troubleshooting.md
+├── .github/          # GitHub configurations
+│   ├── workflows/        # CI/CD pipelines
+│   ├── ISSUE_TEMPLATE/   # Issue templates
+│   ├── CODEOWNERS        # Code ownership
+│   └── SECURITY.md       # Security policy
+├── README.md         # Project overview
+└── LICENSE           # MIT License
 ```
 
 ## Apps (Frontend)

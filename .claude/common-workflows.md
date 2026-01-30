@@ -358,7 +358,7 @@ git push origin develop
 git checkout main
 git merge develop
 
-# 2. Update CHANGELOG.md
+# 2. Update docs/CHANGELOG.md
 # Add release notes
 
 # 3. Create git tag
