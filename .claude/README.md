@@ -1,10 +1,10 @@
-# Deskio Agent Skills
+# Deskio Claude Instructions
 
-Thư mục này chứa documentation và context để hỗ trợ AI Agent làm việc hiệu quả hơn với Deskio codebase.
+Thư mục `.claude/` chứa documentation và context để hỗ trợ Claude AI làm việc hiệu quả hơn với Deskio codebase.
 
 ## Mục đích
 
-Agent Skills là tập hợp các file documentation giúp AI Agent (như Claude) hiểu rõ:
+Các file trong thư mục này giúp Claude hiểu rõ:
 - Cấu trúc project và architecture
 - Coding conventions và best practices
 - Common workflows và patterns
