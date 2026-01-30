@@ -193,5 +193,5 @@ Sử dụng issue templates tại `.github/ISSUE_TEMPLATE/`.
 
 ## Liên hệ
 
-- Bảo mật: xem `SECURITY.md`.
+- Bảo mật: xem `../.github/SECURITY.md`.
 - Hành vi: xem `CODE_OF_CONDUCT.md`.

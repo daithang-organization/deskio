@@ -271,10 +271,10 @@ docs/
 
 ### Contributing
 
-- `../CONTRIBUTING.md` - Contribution guidelines
-- `../CODE_OF_CONDUCT.md` - Code of conduct
-- `../SECURITY.md` - Security policy
-- `../CHANGELOG.md` - Project changelog
+- `CONTRIBUTING.md` - Contribution guidelines
+- `CODE_OF_CONDUCT.md` - Code of conduct
+- `../.github/SECURITY.md` - Security policy
+- `CHANGELOG.md` - Project changelog
 
 ---
 
